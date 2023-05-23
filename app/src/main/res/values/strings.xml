@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lion School</string>
+    <string name="choose_a_course">Choose a course to manage</string>
+    <string name="start">Start</string>
+    <string name="lion">Lion</string>
+    <string name="scholl">School</string>
+    <string name="title_activity_course">CourseActivity</string>
+    <string name="courses">Courses</string>
+    <string name="search_a_course">Search a course</string>
+</resources>
