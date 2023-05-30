@@ -7,4 +7,6 @@
     <string name="title_activity_course">CourseActivity</string>
     <string name="courses">Courses</string>
     <string name="search_a_course">Search a course</string>
+    <string name="workload">Workload:</string>
+    <string name="hours">hours</string>
 </resources>
