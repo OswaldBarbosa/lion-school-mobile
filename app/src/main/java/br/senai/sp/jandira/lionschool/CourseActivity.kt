@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.lionschool
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -52,6 +54,8 @@ class CourseActivity : ComponentActivity() {
 
 @Composable
 fun CourseScreen() {
+
+    val context = LocalContext.current
 
     var listCourse by remember {
         mutableStateOf(listOf<Courses>())
@@ -87,17 +91,29 @@ fun CourseScreen() {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 12.dp),
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center
     ) {
 
-        Column() {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 22.dp)
+        ) {
 
             Text(
                 text = stringResource(id = R.string.courses),
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(51, 71, 176)
+            )
+
+            Divider(
+                modifier = Modifier
+                    .height(3.dp)
+                    .width(140.dp)
+                    .offset(x = 4.dp),
+                color = Color(255, 194, 61)
             )
 
         }
@@ -134,20 +150,33 @@ fun CourseScreen() {
 
         LazyColumn(
             modifier = Modifier
-                .fillMaxHeight()
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
 
             items(listCourse) {
 
-                Surface(
+                Button(
+                    onClick = {
+                        var openStudents = Intent(context, StudentsActivity::class.java)
+                        openStudents.putExtra("sigla", it.sigla)
+                        context.startActivity(openStudents)
+                    },
                     modifier = Modifier
                         .width(390.dp)
                         .height(208.dp),
+                    colors = ButtonDefaults.buttonColors(Color(255, 255, 255)),
                     border = BorderStroke(2.dp, color = Color(51, 71, 176)),
-                    shape = RoundedCornerShape(10.dp)
+                    shape = RoundedCornerShape(10.dp),
                 ) {
 
-                    Column() {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.SpaceEvenly
+                    ) {
 
                         Row(
                             modifier = Modifier
@@ -176,20 +205,6 @@ fun CourseScreen() {
 
                         Row(
                             modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-
-                            Text(
-                                text = it.descricao,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Color(51, 71, 176)
-                            )
-
-                        }
-
-                        Row(
-                            modifier = Modifier
                                 .fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center
                         ) {
@@ -205,54 +220,42 @@ fun CourseScreen() {
                                     .width(4.dp)
                             )
 
-                            Row() {
+                            Text(
+                                text = stringResource(id = R.string.workload),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(51, 71, 176)
+                            )
 
-                                Text(
-                                    text = stringResource(id = R.string.workload),
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    color = Color(51, 71, 176)
-                                )
+                            Spacer(
+                                modifier = Modifier
+                                    .width(6.dp)
+                            )
 
-                                Spacer(
-                                    modifier = Modifier
-                                        .width(4.dp)
-                                )
+                            Text(
+                                text = it.carga.toString(),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(255, 194, 61)
+                            )
 
-                                Text(
-                                    text = it.carga.toString(),
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    color = Color(255, 194, 61)
-                                )
+                            Spacer(
+                                modifier = Modifier
+                                    .width(6.dp)
+                            )
 
-                                Spacer(
-                                    modifier = Modifier
-                                        .width(4.dp)
-                                )
+                            Text(
+                                text = stringResource(id = R.string.hours),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(51, 71, 176)
+                            )
 
-                                Text(
-                                    text = stringResource(id = R.string.hours),
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    color = Color(51, 71, 176)
-                                )
-
-                            }
                         }
                     }
                 }
             }
         }
-
-        Divider(
-            modifier = Modifier
-                .height(15.dp)
-                .width(65.dp)
-                .offset(x = 2.dp),
-            color = Color(255, 194, 61)
-        )
-
     }
 }
 
