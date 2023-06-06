@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.lionschool.model.Courses
 import br.senai.sp.jandira.lionschool.model.CoursesList
+import br.senai.sp.jandira.lionschool.model.Students
 import br.senai.sp.jandira.lionschool.model.StudentsList
 import br.senai.sp.jandira.lionschool.service.RetrofitFactory
 import br.senai.sp.jandira.lionschool.ui.theme.LionSchoolTheme
@@ -30,6 +31,7 @@ import javax.security.auth.callback.Callback
 class StudentsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val getSigla = intent.getStringExtra("sigla")
         setContent {
             LionSchoolTheme {
                 // A surface container using the 'background' color from the theme
@@ -37,7 +39,7 @@ class StudentsActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    StudentsScreen()
+                    StudentsScreen(getSigla.toString())
                 }
             }
         }
@@ -45,18 +47,18 @@ class StudentsActivity : ComponentActivity() {
 }
 
 @Composable
-fun StudentsScreen() {
+fun StudentsScreen(sigla: String) {
 
     val context = LocalContext.current
 
     var listStudents by remember {
-        mutableStateOf(listOf<Courses>())
+        mutableStateOf(listOf<Students>())
     }
 
     //cria uma chamada para o endpoint
     var call = RetrofitFactory()
         .getStudentsService()
-        .getStudents()
+        .getStudentsByCourse(sigla)
 
     //executa a chamada
     call.enqueue(object : retrofit2.Callback<StudentsList> {
@@ -190,18 +192,36 @@ fun StudentsScreen() {
 
         }
 
-        LazyColumn() {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
 
+            items(listStudents) {
+
+                Button(
+                    onClick = {},
+                    modifier = Modifier
+                        .width(120.dp)
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(Color(51,71,176))
+                ) {
+
+                    Text(text = it.nome)
+
+                }
+
+            }
 
         }
 
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DefaultPreview3() {
-    LionSchoolTheme {
-        StudentsScreen()
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun DefaultPreview3() {
+//    LionSchoolTheme {
+//        StudentsScreen()
+//    }
+//}
