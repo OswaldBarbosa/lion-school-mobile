@@ -13,4 +13,5 @@
     <string name="status">Status</string>
     <string name="studying">Studying</string>
     <string name="finished">Finished</string>
+    <string name="title_activity_student_results">StudentResultsActivity</string>
 </resources>
