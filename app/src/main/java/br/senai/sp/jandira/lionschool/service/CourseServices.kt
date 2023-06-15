@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface CourseServices {
 
-    //https://lion-scholl.cyclic.app/v1/lion-school/
+    //https://lion-school-backend.cyclic.app/v1/lion-school/
     @GET("cursos")
     fun getCourses (): Call<CoursesList>
 

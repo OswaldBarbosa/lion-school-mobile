@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -98,7 +99,7 @@ fun CourseScreen() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 22.dp)
+                .padding(start = 22.dp, top = 24.dp)
         ) {
 
             Text(
@@ -117,6 +118,11 @@ fun CourseScreen() {
             )
 
         }
+
+        Spacer(
+            modifier = Modifier
+                .height(20.dp)
+        )
 
         Column(
             modifier = Modifier
@@ -151,7 +157,7 @@ fun CourseScreen() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
+                .height(505.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -256,6 +262,63 @@ fun CourseScreen() {
                 }
             }
         }
+
+        Column {
+
+            Divider(
+                modifier = Modifier
+                    .width(360.dp)
+                    .height(4.dp)
+                    .offset(y = 12.dp, x = 25.dp),
+                color = Color(255, 194, 61)
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(top = 12.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            )
+            {
+
+                Image(
+                    modifier = Modifier
+                        .size(35.dp),
+                    painter = painterResource(id = R.drawable.youtube),
+                    contentDescription = "",
+                    colorFilter = ColorFilter.tint(color = Color(51, 71, 176))
+                )
+
+                Image(
+                    modifier = Modifier
+                        .size(25.dp),
+                    painter = painterResource(id = R.drawable.twitter),
+                    contentDescription = "",
+                    colorFilter = ColorFilter.tint(color = Color(51, 71, 176))
+                )
+
+                Image(
+                    modifier = Modifier
+                        .size(25.dp),
+                    painter = painterResource(id = R.drawable.instagram),
+                    contentDescription = "",
+                    colorFilter = ColorFilter.tint(color = Color(51, 71, 176))
+                )
+
+                Image(
+                    modifier = Modifier
+                        .size(30.dp),
+                    painter = painterResource(id = R.drawable.facebook),
+                    contentDescription = "",
+                    colorFilter = ColorFilter.tint(color = Color(51, 71, 176))
+                )
+
+            }
+
+        }
+
     }
 }
 
